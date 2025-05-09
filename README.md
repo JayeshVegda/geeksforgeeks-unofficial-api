@@ -43,7 +43,9 @@ https://mygfg-api.vercel.app
 
 ## API Endpoints
 
-### 1. User Profile
+<details>
+<summary><h3>1. User Profile</h3></summary>
+
 ```
 GET https://mygfg-api.vercel.app/<username>
 ```
@@ -87,8 +89,11 @@ https://mygfg-api.vercel.app/username123
     }
 }
 ```
+</details>
 
-### 2. Submission Calendar
+<details>
+<summary><h3>2. Submission Calendar</h3></summary>
+
 ```
 GET https://mygfg-api.vercel.app/<username>/calendar?year=2024
 ```
@@ -113,8 +118,11 @@ https://mygfg-api.vercel.app/username123/calendar?year=2024
     }
 }
 ```
+</details>
 
-### 3. Contest History
+<details>
+<summary><h3>3. Contest History</h3></summary>
+
 ```
 GET https://mygfg-api.vercel.app/<username>/contest?year=2024
 ```
@@ -140,6 +148,7 @@ https://mygfg-api.vercel.app/username123/contest?year=2024
     "Contest Details": [...]
 }
 ```
+</details>
 
 ## Rate Limiting
 
