@@ -9,6 +9,7 @@ from flask_limiter.util import get_remote_address
 from functools import wraps
 import re
 import logging
+import os
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -22,12 +23,13 @@ RATE_LIMIT_PER_MINUTE = "10 per minute"
 RATE_LIMIT_PER_HOUR = "50 per hour"
 RATE_LIMIT_PER_DAY = "200 per day"
 
-# Initialize rate limiter with Redis storage for Vercel
+# Initialize rate limiter with memory storage for Vercel
 limiter = Limiter(
     app=app,
     key_func=get_remote_address,
     default_limits=[RATE_LIMIT_PER_DAY, RATE_LIMIT_PER_HOUR],
-    storage_uri="memory://"  # Using memory storage for Vercel
+    storage_uri="memory://",
+    strategy="fixed-window"  # Use fixed window strategy for better serverless compatibility
 )
 
 def validate_username(username):
@@ -88,13 +90,14 @@ class geeksforgeeksAPI(Resource):
             
             if "error" in response:
                 status_code = response.get("status_code", 500)
+                logger.error(f"Error in response for {username}: {response['error']}")
                 return response, status_code
                 
             return response, 200
             
         except Exception as e:
-            logger.error(f"Error processing request for {username}: {str(e)}")
-            return {"error": "Internal Server Error", "status_code": 500}, 500
+            logger.error(f"Error processing request for {username}: {str(e)}", exc_info=True)
+            return {"error": "Internal Server Error", "message": str(e), "status_code": 500}, 500
 
 class GeeksForGeeksCalendarAPI(Resource):
     @limiter.limit(RATE_LIMIT_PER_MINUTE)

@@ -5,6 +5,8 @@ from functools import lru_cache
 from typing import Dict, Any, Optional
 import logging
 import time
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -14,7 +16,7 @@ class Scraper:
     """Scraper class for GeeksForGeeks user data"""
     
     BASE_URL = "https://auth.geeksforgeeks.org/user/{username}/practice/"
-    TIMEOUT = 10  # seconds
+    TIMEOUT = 30  # Increased timeout to 30 seconds
     HEADERS = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
@@ -26,6 +28,20 @@ class Scraper:
     def __init__(self, username: str):
         self.username = username
         self.url = self.BASE_URL.format(username=username)
+        self.session = self._create_session()
+
+    def _create_session(self) -> requests.Session:
+        """Create a session with retry mechanism"""
+        session = requests.Session()
+        retry_strategy = Retry(
+            total=3,  # number of retries
+            backoff_factor=1,  # wait 1, 2, 4 seconds between retries
+            status_forcelist=[429, 500, 502, 503, 504]  # HTTP status codes to retry on
+        )
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
+        return session
 
     def fetchResponse(self) -> Dict[str, Any]:
         """
@@ -34,7 +50,7 @@ class Scraper:
         """
         try:
             logger.info(f"Fetching data for username: {self.username}")
-            response = requests.get(self.url, headers=self.HEADERS, timeout=self.TIMEOUT)
+            response = self.session.get(self.url, headers=self.HEADERS, timeout=self.TIMEOUT)
             
             if response.status_code == 404:
                 logger.error(f"Profile not found for username: {self.username}")
@@ -57,12 +73,17 @@ class Scraper:
 
             return self._parse_user_data(user_data)
             
+        except requests.exceptions.Timeout:
+            logger.error(f"Request timed out for {self.username}")
+            return {"error": "Request timed out", "status_code": 504}
         except requests.exceptions.RequestException as e:
             logger.error(f"Request failed for {self.username}: {str(e)}")
             return {"error": f"Request failed: {str(e)}", "status_code": 500}
         except Exception as e:
-            logger.error(f"Unexpected error for {self.username}: {str(e)}")
+            logger.error(f"Unexpected error for {self.username}: {str(e)}", exc_info=True)
             return {"error": "An unexpected error occurred", "status_code": 500}
+        finally:
+            self.session.close()
 
     def _parse_user_data(self, user_data: Dict[str, Any]) -> Dict[str, Any]:
         """Parse the user data from the JSON response"""
