@@ -1,5 +1,10 @@
 # GeeksForGeeks API
 
+
+<div align="center">
+ <img src="https://images.yourstory.com/cs/images/companies/119169043101580097794440231905187057223611079n-1617083628661.png" width = "33%"  >
+</div>
+<br>
 A RESTful API service that provides access to GeeksForGeeks user data, including profile information, solved problems, contest history, and submission calendar.
 
 ## API URL
