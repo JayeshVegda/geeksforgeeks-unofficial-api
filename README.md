@@ -2,6 +2,31 @@
 
 A RESTful API service that provides access to GeeksForGeeks user data, including profile information, solved problems, contest history, and submission calendar.
 
+## API URL
+
+The API is now live and can be accessed at:
+```
+https://mygfg-api.vercel.app
+```
+
+## API Endpoints Table
+
+| Endpoint | Method | Description | Parameters | Example |
+|----------|--------|-------------|------------|---------|
+| `/<username>` | GET | Get user profile and solved problems | `username` (path) | `https://mygfg-api.vercel.app/username123` |
+| `/<username>/calendar` | GET | Get user's submission calendar | `username` (path)<br>`year` (query, optional) | `https://mygfg-api.vercel.app/username123/calendar?year=2024` |
+| `/<username>/contest` | GET | Get user's contest history | `username` (path)<br>`year` (query, optional) | `https://mygfg-api.vercel.app/username123/contest?year=2024` |
+
+### Response Status Codes
+
+| Status Code | Description |
+|-------------|-------------|
+| 200 | Success |
+| 400 | Invalid username format or year |
+| 404 | User profile not found |
+| 429 | Rate limit exceeded |
+| 500 | Internal server error |
+
 ## Features
 
 - **User Profile Data**: Get detailed information about a GeeksForGeeks user
@@ -15,9 +40,14 @@ A RESTful API service that provides access to GeeksForGeeks user data, including
 
 ### 1. User Profile
 ```
-GET /<username>
+GET https://mygfg-api.vercel.app/<username>
 ```
 Returns user's profile information and solved problems.
+
+**Example:**
+```
+https://mygfg-api.vercel.app/username123
+```
 
 **Example Response:**
 ```json
@@ -55,9 +85,14 @@ Returns user's profile information and solved problems.
 
 ### 2. Submission Calendar
 ```
-GET /<username>/calendar?year=2024
+GET https://mygfg-api.vercel.app/<username>/calendar?year=2024
 ```
 Returns user's submission activity for the specified year.
+
+**Example:**
+```
+https://mygfg-api.vercel.app/username123/calendar?year=2024
+```
 
 **Query Parameters:**
 - `year` (optional): Year to fetch submissions for (defaults to current year)
@@ -76,9 +111,14 @@ Returns user's submission activity for the specified year.
 
 ### 3. Contest History
 ```
-GET /<username>/contest?year=2024
+GET https://mygfg-api.vercel.app/<username>/contest?year=2024
 ```
 Returns user's contest participation and ratings.
+
+**Example:**
+```
+https://mygfg-api.vercel.app/username123/contest?year=2024
+```
 
 **Query Parameters:**
 - `year` (optional): Year to fetch contest data for (defaults to current year)
@@ -103,7 +143,7 @@ The API implements rate limiting to ensure fair usage:
 - 50 requests per hour per IP
 - 200 requests per day per IP
 
-## Installation
+## Local Development
 
 1. Clone the repository:
 ```bash
@@ -122,9 +162,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## Running the Application
-
-1. Start the Flask server:
+4. Start the Flask server:
 ```bash
 python app.py
 ```
