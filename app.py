@@ -29,7 +29,8 @@ limiter = Limiter(
     key_func=get_remote_address,
     default_limits=[RATE_LIMIT_PER_DAY, RATE_LIMIT_PER_HOUR],
     storage_uri="memory://",
-    strategy="fixed-window"  # Use fixed window strategy for better serverless compatibility
+    strategy="fixed-window",  # Use fixed window strategy for better serverless compatibility
+    default_limits_exempt_when=lambda: True  # Disable rate limiting in development
 )
 
 def validate_username(username):
@@ -163,3 +164,7 @@ class GeeksForGeeksContestAPI(Resource):
 api.add_resource(geeksforgeeksAPI, "/<string:username>")
 api.add_resource(GeeksForGeeksCalendarAPI, "/<string:username>/calendar")
 api.add_resource(GeeksForGeeksContestAPI, "/<string:username>/contest")
+
+# Add this at the end of the file
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
