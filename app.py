@@ -22,12 +22,12 @@ RATE_LIMIT_PER_MINUTE = "10 per minute"
 RATE_LIMIT_PER_HOUR = "50 per hour"
 RATE_LIMIT_PER_DAY = "200 per day"
 
-# Initialize rate limiter
+# Initialize rate limiter with Redis storage for Vercel
 limiter = Limiter(
     app=app,
     key_func=get_remote_address,
     default_limits=[RATE_LIMIT_PER_DAY, RATE_LIMIT_PER_HOUR],
-    storage_uri="memory://"
+    storage_uri="memory://"  # Using memory storage for Vercel
 )
 
 def validate_username(username):
@@ -160,6 +160,3 @@ class GeeksForGeeksContestAPI(Resource):
 api.add_resource(geeksforgeeksAPI, "/<string:username>")
 api.add_resource(GeeksForGeeksCalendarAPI, "/<string:username>/calendar")
 api.add_resource(GeeksForGeeksContestAPI, "/<string:username>/contest")
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=False)  # Set debug=True for development
