@@ -8,9 +8,17 @@
                 "maxLambdaSize": "15mb",
                 "runtime": "python3.9"
             }
+        },
+        {
+            "src": "public/**",
+            "use": "@vercel/static"
         }
     ],
     "routes": [
+        {
+            "src": "/google2e9d921d285b1a0a.html",
+            "dest": "/public/google2e9d921d285b1a0a.html"
+        },
         {
             "src": "/(.*)",
             "dest": "app.py"
