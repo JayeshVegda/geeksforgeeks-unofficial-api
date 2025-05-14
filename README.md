@@ -1,20 +1,41 @@
-# GeeksForGeeks API
-
+# GeeksForGeeks Unofficial API
 
 <div align="center">
- <img src="https://images.yourstory.com/cs/images/companies/119169043101580097794440231905187057223611079n-1617083628661.png" width = "33%"  >
+  <img src="https://images.yourstory.com/cs/images/companies/119169043101580097794440231905187057223611079n-1617083628661.png" width = "33%"  >
 </div>
 <br>
-A RESTful API service that provides access to GeeksForGeeks user data, including profile information, solved problems, contest history, and submission calendar.
 
-## API URL
+[![Python](https://img.shields.io/badge/Python-3.9-blue.svg)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-2.0.1-green.svg)](https://flask.palletsprojects.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black.svg)](https://vercel.com)
+
+A powerful, unofficial RESTful API service for accessing GeeksForGeeks user data. Get detailed information about coding profiles, solved problems, contest history, and submission calendars through a simple API interface.
+
+## 🌟 Features
+
+- **📊 User Profile Data**: Get comprehensive information about any GeeksForGeeks user
+- **✅ Solved Problems**: Access user's solved problems categorized by difficulty level
+- **🏆 Contest History**: View detailed contest participation and ratings
+- **📅 Submission Calendar**: Track coding activity and submission patterns
+- **🛡️ Rate Limiting**: Built-in protection against API abuse
+- **⚡ Fast & Reliable**: Optimized for performance and reliability
+
+## 🔗 Quick Links
+
+- [Live API Demo](https://mygfg-api.vercel.app)
+- [Documentation](#api-endpoints)
+- [Installation Guide](#local-development)
+- [Contributing Guidelines](#contributing)
+
+## 🚀 API URL
 
 The API is now live and can be accessed at:
 ```
 https://mygfg-api.vercel.app
 ```
 
-## API Endpoints Table
+## 📚 API Endpoints Table
 
 | Endpoint | Method | Description | Parameters | Example |
 |----------|--------|-------------|------------|---------|
@@ -32,16 +53,7 @@ https://mygfg-api.vercel.app
 | 429 | Rate limit exceeded |
 | 500 | Internal server error |
 
-## Features
-
-- **User Profile Data**: Get detailed information about a GeeksForGeeks user
-- **Solved Problems**: Access user's solved problems categorized by difficulty
-- **Contest History**: View user's contest participation and ratings
-- **Submission Calendar**: Track user's coding activity over time
-- **Rate Limiting**: Built-in rate limiting to prevent abuse
-- **Error Handling**: Comprehensive error handling and meaningful error messages
-
-## API Endpoints
+## 📖 Detailed Documentation
 
 <details>
 <summary><h3>1. User Profile</h3></summary>
@@ -150,14 +162,14 @@ https://mygfg-api.vercel.app/username123/contest?year=2024
 ```
 </details>
 
-## Rate Limiting
+## ⚡ Rate Limiting
 
 The API implements rate limiting to ensure fair usage:
 - 10 requests per minute per IP
 - 50 requests per hour per IP
 - 200 requests per day per IP
 
-## Local Development
+## 💻 Local Development
 
 1. Clone the repository:
 ```bash
@@ -183,7 +195,7 @@ python app.py
 
 The server will start at `http://localhost:5000`
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 geeksforgeeks-api/
@@ -196,7 +208,7 @@ geeksforgeeks-api/
     └── contest.py     # Contest data handler
 ```
 
-## Dependencies
+## 📦 Dependencies
 
 - Flask
 - Flask-RESTful
@@ -204,7 +216,7 @@ geeksforgeeks-api/
 - Requests
 - BeautifulSoup4
 
-## Error Handling
+## ⚠️ Error Handling
 
 The API returns appropriate HTTP status codes and error messages:
 
@@ -214,7 +226,9 @@ The API returns appropriate HTTP status codes and error messages:
 - `429 Too Many Requests`: Rate limit exceeded
 - `500 Internal Server Error`: Server-side error
 
-## Contributing
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
 
 1. Fork the repository
 2. Create a feature branch
@@ -222,16 +236,20 @@ The API returns appropriate HTTP status codes and error messages:
 4. Push to the branch
 5. Create a Pull Request
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Author
+## 👨‍💻 Author
 
 Your Name - [@yourusername](https://github.com/yourusername)
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
 - GeeksForGeeks for providing the platform
 - Flask and its extensions for the web framework
 - All contributors who have helped improve this project
+
+## 🔍 Keywords
+
+GeeksForGeeks API, GFG API, Coding Profile API, Programming Contest API, GeeksForGeeks Scraper, GFG User Data, Coding Statistics API, Programming Profile API, GeeksForGeeks Unofficial API, GFG Contest History, Coding Activity Tracker, Programming Progress API
