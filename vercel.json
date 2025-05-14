@@ -20,6 +20,10 @@
             "dest": "/public/google2e9d921d285b1a0a.html"
         },
         {
+            "src": "/sitemap.xml",
+            "dest": "/public/sitemap.xml"
+        },
+        {
             "src": "/(.*)",
             "dest": "app.py"
         }

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Sitemap: https://mygfg-api.vercel.app/sitemap.xml
+
+# Rate limiting endpoints
+Disallow: /api/rate-limit
+Disallow: /api/status 
